@@ -37,9 +37,9 @@ A coupled system where:
 • A sensitivity (gain) parameter scales learning intensity  
 • The gain decays over time, stabilizing convergence  
 
-## This creates a self-regulating learning process.
+This creates a self-regulating learning process.
 
-## Information requires a carrier. Path A is the carrier (the signal), and Path B is the information (the meaning/stability extracted from that signal).
+Information requires a carrier. Path A is the carrier (the signal), and Path B is the information (the meaning/stability extracted from that signal).
 
 ---
 
