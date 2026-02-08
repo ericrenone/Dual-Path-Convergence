@@ -1,0 +1,134 @@
+
+
+import random
+import tkinter as tk
+
+# =======================
+# FIXED-POINT CONFIGURATION
+# =======================
+SHIFT = 16
+ONE = 1 << SHIFT
+PRECISION = 1.0 / ONE
+
+def to_q(f: float) -> int:
+    """Convert float to fixed-point integer representation."""
+    return int(f * ONE)
+
+def from_q(q: int) -> float:
+    """Convert fixed-point integer back to float."""
+    return q * PRECISION
+
+def mul_q(a: int, b: int) -> int:
+    """Multiply two fixed-point numbers."""
+    return (a * b) >> SHIFT
+
+def div_q(a: int, b: int) -> int:
+    """Divide two fixed-point numbers safely."""
+    return (a << SHIFT) // b if b != 0 else 0
+
+# =======================
+# EXPERIMENT CONFIGURATION
+# =======================
+MASTER_SEED = 42           # Deterministic reproducibility
+STEPS = 450                # Number of simulation steps
+Q_LR = to_q(0.12)          # Fixed-point learning rate
+Q_DECAY = to_q(0.982)      # Fixed-point decay factor
+Q_TRUE_MEAN = to_q(3.5)    # Target mean for Gaussian sampling
+Q_VARIANCE = to_q(1.0)     # Target variance
+
+# =======================
+# LAMBDA CALCULUS UPDATES
+# =======================
+# Adaptive gain update (Path B)
+λ_gain = lambda state, grad: (
+    state[0] - mul_q(mul_q(Q_LR, state[1]), grad),
+    max(to_q(0.005), mul_q(state[1], Q_DECAY))
+)
+
+# Fisher information accumulation
+λ_fisher = lambda info, alpha: info + div_q(ONE, alpha)
+
+# =======================
+# SOTA MACHINE CLASS
+# =======================
+class SOTAMachine:
+    """
+    Simulates adaptive belief updates and Fisher information accumulation.
+    """
+    def __init__(self):
+        random.seed(MASTER_SEED)
+        self.q_state_b = (to_q(0.0), ONE)  # (theta, alpha)
+        self.q_fisher = 0
+        self.history_b = []
+        self.history_f = []
+
+    def step(self):
+        """Perform one simulation step."""
+        sample = random.gauss(from_q(Q_TRUE_MEAN), 1.0)
+        q_sample = to_q(sample)
+
+        # Update belief using adaptive gain lambda
+        grad = self.q_state_b[0] - q_sample
+        self.q_state_b = λ_gain(self.q_state_b, grad)
+
+        # Update Fisher information (certainty)
+        self.q_fisher = λ_fisher(self.q_fisher, self.q_state_b[1])
+
+        # Record histories for visualization
+        self.history_b.append(from_q(self.q_state_b[0]))
+        self.history_f.append(from_q(self.q_fisher))
+
+# =======================
+# VISUALIZATION CLASS
+# =======================
+class MetaVisualizer:
+    """
+    Tkinter-based visualization of belief trajectory and Fisher information.
+    """
+    def __init__(self, root: tk.Tk):
+        self.root = root
+        self.root.title("SOTA: Lambda Calculus × Fisher Information Geometry")
+        self.canvas = tk.Canvas(root, width=1000, height=600, bg="#020617", highlightthickness=0)
+        self.canvas.pack()
+
+        self.m = SOTAMachine()
+        self.t = 0
+        self.animate()
+
+    def animate(self):
+        """Animation loop for Tkinter."""
+        if self.t < STEPS:
+            self.m.step()
+            self.draw()
+            self.t += 1
+            self.root.after(10, self.animate)  # 10 ms per frame
+
+    def draw(self):
+        """Draw trajectories and HUD on canvas."""
+        self.canvas.delete("all")
+        mid_y, scale = 250, 50
+
+        # BLUE: Adaptive belief trajectory
+        pts = [(i * (1000/STEPS), mid_y - (v * scale)) for i, v in enumerate(self.m.history_b)]
+        if len(pts) > 2:
+            self.canvas.create_line(pts, fill="#0ea5e9", width=3)
+
+        # GREEN: Fisher information (certainty)
+        f_pts = [(i * (1000/STEPS), 580 - (v * 0.05)) for i, v in enumerate(self.m.history_f)]
+        if len(f_pts) > 2:
+            self.canvas.create_line(f_pts, fill="#10b981", width=2)
+
+        # HUD
+        self.canvas.create_text(
+            20, 20, anchor="nw", fill="#94a3b8", font=("Consolas", 12),
+            text=f"STEP: {self.t} | FISHER INFO (Certainty): {from_q(self.m.q_fisher):.2f}\n"
+                 f"BLUE: Adaptive Belief | GREEN: Information Curvature"
+        )
+
+# =======================
+# MAIN ENTRY POINT
+# =======================
+if __name__ == "__main__":
+    root = tk.Tk()
+    MetaVisualizer(root)
+    root.mainloop()
