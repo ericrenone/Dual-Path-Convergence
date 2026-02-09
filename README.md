@@ -53,7 +53,7 @@ All learning behavior is expressed as stateless transformations:
 
 • No in-place parameter mutation  
 • No optimizer objects  
-• No hidden side effects  
+• Updates are expressed as pure transition functions
 
 State evolution is entirely driven by composable transition functions.
 
@@ -138,5 +138,4 @@ Allowing intuitive inspection of learning dynamics.
 
 ## Conclusion
 
-This project demonstrates that a stochastic dynamical system, fixed-point adaptive learning system can track a target mean under noisy inputs while simultaneously monitoring real-time certainty using Fisher information.
-
+This project demonstrates that coupling gradient-based learning with adaptive sensitivity control significantly improves convergence stability under stochastic noise, while information-theoretic metrics reveal alignment between inferred and true distributions over time.
