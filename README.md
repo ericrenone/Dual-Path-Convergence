@@ -6,8 +6,6 @@ This repository implements a **minimal functional learning system** that compare
 • Standard gradient drift minimization  
 • Adaptive gain-controlled learning with internal sensitivity decay  
 
-The system is built entirely from **immutable lambda-style state transitions**, turning learning into a clean dynamical process rather than imperative parameter mutation.
-
 Convergence is evaluated using **information-theoretic drift (KL divergence)** alongside prediction error.
 
 
@@ -140,12 +138,5 @@ Allowing intuitive inspection of learning dynamics.
 
 ## Conclusion
 
-This project demonstrates that a deterministic, fixed-point adaptive learning system can track a target mean under noisy inputs while simultaneously monitoring real-time certainty using Fisher information.
-
-Key takeaways:
-
-Deterministic belief updates: The lambda-calculus-based update rule reliably converges to the true mean.
-
-Certainty tracking: Fisher information grows with each observation, showing confidence growing over time. 
-
+This project demonstrates that a stochastic dynamical system, fixed-point adaptive learning system can track a target mean under noisy inputs while simultaneously monitoring real-time certainty using Fisher information.
 
