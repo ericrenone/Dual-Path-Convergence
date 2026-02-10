@@ -18,7 +18,7 @@ The DPFAE is an adaptive learning system designed for edge intelligence and neur
 
 ## 🧠 Theoretical Foundations
 
-DPFAE is grounded in **three pillars of mathematical and physical inspiration**:
+DPFAE is grounded in **four pillars of mathematical and physical inspiration**:
 
 1. **Ergodic Theory & Statistical Mechanics**  
    - Engine behavior inspired by the **Birkhoff Ergodic Theorem**: stochastic weight updates are treated as a measure-preserving transformation.  
@@ -32,7 +32,11 @@ DPFAE is grounded in **three pillars of mathematical and physical inspiration**:
    - Gain adaptation (\(\alpha_t\)) mimics **inverse temperature control**, analogous to minimizing Gibbs free energy in hardware.  
    - Updates balance sensitivity and stability, reducing unnecessary switching in silicon while maintaining fast convergence.  
 
-> ⚠️ Note: Ergodic theory, Čencov, and FEP are **design inspirations**, not PDE/matrix computations in code.
+4. **Lambda Calculus (Functional Inspiration)**  
+   - Update rules can be conceptually viewed as **first-class functions**, emphasizing composability and modularity of reactive vs. adaptive paths.  
+   - This perspective informs the design of **decoupled, composable update operators**, but is **not literally implemented** in code.  
+
+> ⚠️ Note: Ergodic theory, Čencov, FEP, and Lambda Calculus are **design inspirations**, not literal computations in code.
 
 ---
 
@@ -72,7 +76,7 @@ The architecture separates **fast, reactive updates** from **slow, adaptive gain
 |----------------|------------|------------|------------|----------------------|
 | Convergence    | Linear/Sublinear | Sublinear | Task-dependent | Geometric (Ergodic) |
 | Stability      | Poor       | Moderate   | Empirical  | Strong (Bounded)     |
-| Hardware       | FP32/FP16  | FP32       | FP16+      | Q16.16 Fixed-Point  |
+| Hardware       | FP32/FP16  | FP32       | FP16+      | Integer Fixed-Point  |
 | Geometry       | Euclidean  | Heuristic  | Implicit   | Riemannian (Approx)  |
 | Complexity     | O(n)       | O(n)       | O(n)       | O(n)                 |
 
@@ -102,6 +106,7 @@ The architecture separates **fast, reactive updates** from **slow, adaptive gain
 - **Variance Suppression** – Adaptive gain reduces RMSE by ~2.3× versus constant-gain methods.  
 - **Geometry-Aware Optimization** – Riemannian natural gradient ensures coordinate-invariant updates.  
 - **Stability-Inspired Design** – Smooth, bounded updates informed by harmonic analogy.  
+- **Functional Composability Inspiration** – Lambda Calculus perspective informs decoupled operator design.  
 - **Hardware-Ready** – Compatible with FPGA, ASIC, and neuromorphic designs.  
 - **Provable Guarantees** – Boundedness, monotonic descent, and predictable variance reduction.  
 - **Linear Complexity** – Fully element-wise updates; no matrix inversion required.  
@@ -112,5 +117,6 @@ The architecture separates **fast, reactive updates** from **slow, adaptive gain
 
 - Sims, C. A. (2003). *Implications of rational inattention.* Journal of Monetary Economics.  
 - Čencov, N. N. (1982). *Statistical Decision Rules and Optimal Inference.*  
-- Birkhoff, G. D. (1931). *Proof of the ergodic theorem.* PNAS.
+- Birkhoff, G. D. (1931). *Proof of the ergodic theorem.* PNAS.  
 - Quaternion Optimization & Unit-Sphere Projection Literature (for manifold implementation).  
+- Functional Programming & Lambda Calculus as conceptual inspiration for composable updates.  
