@@ -131,7 +131,7 @@ Sims, C. (2003). *Implications of rational inattention.*
 
 ## ✅ Summary
 
-DPFAE is a:
+DPFAE is a practical realization of modern learning theory for real-time edge intelligence.
 
 ✔ hardware-native stochastic optimizer  
 ✔ provably stable adaptive system  
@@ -139,7 +139,6 @@ DPFAE is a:
 ✔ geometry-consistent manifold method  
 ✔ linear-time, deterministic update rule  
 
-**A practical realization of modern learning theory for real-time edge intelligence.**
 
 ---
 
