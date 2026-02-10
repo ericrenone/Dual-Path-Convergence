@@ -68,9 +68,6 @@ The **Dual-Path Architecture** separates **fast, reactive updates** from **slow,
 - **Deterministic Integer Arithmetic** – Fully fixed-point (Q16.16), no floating point units required.
 - **Memory Efficiency** – $O(n)$ or $O(1)$ gain state per layer.
 - **Latency** – Deterministic per-step update, ideal for hard real-time FPGA/ASIC constraints.
-- **Energy Density** – Benchmarked at **~450mW** on Gowin Tang Nano 9K logic.
-
----
 
 ## 🔗 References
 1. Sims, C. A. (2003). *Implications of rational inattention*. Journal of Monetary Economics.
