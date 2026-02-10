@@ -90,6 +90,4 @@ The **Dual-Path Architecture** separates **fast, reactive updates** from **slow,
 2. Čencov, N. N. (1982). *Statistical Decision Rules and Optimal Inference*.
 3. Birkhoff, G. D. (1931). *Proof of the ergodic theorem*. PNAS.
 
----
-**Author:** Eric Ren  
-**Research Rig:** *PHD RIGOR: SILICON VS SOFTWARE*
+
