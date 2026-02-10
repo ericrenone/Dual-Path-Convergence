@@ -1,4 +1,4 @@
-# Dual-Path Fixed-Point Adaptive Engine (DPFAE)  
+# Ergodic Evolving System: Dual-Path Fixed-Point Adaptive Engine (DPFAE)  
 A Geometry-Aware, Information-Theoretic Architecture for Stable Online Learning  
 
 The DPFAE is an adaptive learning system designed for edge intelligence and neuromorphic substrates. Unlike conventional optimizers (SGD, Adam) that rely on floating-point arithmetic and heuristic moment scaling, DPFAE operates entirely in fixed-point (integer-only) arithmetic, providing provable stability, variance suppression, and hardware-native efficiency.
