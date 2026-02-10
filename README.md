@@ -38,11 +38,8 @@ DPFAE functions as a hardware realization of the **Free Energy Principle**. Foll
 The **Dual-Path Architecture** separates **fast, reactive updates** from **slow, adaptive gain control**, enabling online optimization that is both responsive and stable.
 
 #### 🔑 Core Update Identities
-- **Reactive Path (Fast Updates)**:
-  $$\theta_{t+1}^{(1)} = \theta_t^{(1)} - \eta \cdot \text{grad}_t$$
-- **Adaptive Path (Gain-Controlled)**:
-  $$\theta_{t+1}^{(2)} = \theta_t^{(2)} - \eta \cdot \alpha_t \cdot \text{grad}_t$$
-  $$\alpha_{t+1} = \max(\alpha_{\min}, \gamma \cdot \alpha_t + f(|\text{grad}_t|))$$
+- **Reactive Path (Fast Updates)**
+- **Adaptive Path (Gain-Controlled)**
 
 ---
 
