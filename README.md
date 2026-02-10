@@ -112,7 +112,7 @@ By decoupling the paths, the system achieves **fast error correction** without a
 
 ---
 
-## Provably stable, variance-controlled, and hardware-efficient **online learning primitive**.
+# Provably stable, variance-controlled, and hardware-efficient **online learning primitive**.
 
 
 
