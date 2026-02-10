@@ -44,26 +44,19 @@ The **Dual-Path Architecture** separates **fast, reactive updates** from **slow,
 
 ## 🔑 Core Idea
 
-\section*{Dual-Path Updates}
+* **Reactive Path (Fast Updates):**  
+  Responds immediately to incoming errors or gradients.  
+  $$\theta_{t+1}^{(1)} = \theta_t^{(1)} - \eta \cdot \text{grad}_t$$
 
-\textbf{Reactive Path (Fast Updates):} \\
-The reactive path responds immediately to incoming errors or gradients:
-\begin{equation}
-\theta_{t+1}^{(1)} = \theta_t^{(1)} - \eta \cdot \text{grad}_t
-\end{equation}
+* **Adaptive Path (Gain-Controlled Updates):**  
+  Modulates update magnitude via a dynamic gain, suppressing stochastic variance while maintaining convergence.  
+  $$
+  \theta_{t+1}^{(2)} = \theta_t^{(2)} - \eta \cdot \alpha_t \cdot \text{grad}_t, \quad
+  \alpha_{t+1} = \max(\alpha_{\min}, \gamma \cdot \alpha_t + f(|\text{grad}_t|))
+  $$
 
-\textbf{Adaptive Path (Gain-Controlled Updates):} \\
-The adaptive path modulates the update magnitude via a dynamic gain, suppressing stochastic variance while maintaining convergence:
-\begin{align}
-\theta_{t+1}^{(2)} &= \theta_t^{(2)} - \eta \cdot \alpha_t \cdot \text{grad}_t, \\
-\alpha_{t+1} &= \max\Big(\alpha_{\min}, \ \gamma \cdot \alpha_t + f\big(|\text{grad}_t|\big)\Big)
-\end{align}
-
-\textbf{Key Benefit:} \\
-By decoupling the paths, the system achieves \textbf{fast error correction without amplifying noise}, ensuring stable convergence under stochastic conditions.
-
-
-
+* **Key Benefit:**  
+  By decoupling the paths, the system achieves **fast error correction without amplifying noise**, ensuring stable convergence under stochastic conditions.
 
 ---
 
@@ -117,5 +110,4 @@ By decoupling the paths, the system achieves \textbf{fast error correction witho
 * **Linear Complexity** – Achieves second-order curvature approximation with KFAC without $O(n^3)$ cost.  
 
 ---
-
 *Provably stable, variance-controlled, and hardware-efficient online learning primitive.*
